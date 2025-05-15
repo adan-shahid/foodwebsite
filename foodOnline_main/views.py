@@ -1,4 +1,4 @@
-from django.shortcuts import HttpResponse
+from django.shortcuts import HttpResponse, render
 
 def hello(request):
-    return HttpResponse("Hello World!")
+    return render(request, 'home.html')

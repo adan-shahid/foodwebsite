@@ -1,5 +1,5 @@
 
-{% load static %}  <!-- NOW, WE'LL HAVE ACCESS TO STATIC FILES.. -->
+{% load static %}  <!-- NOW, WE'LL HAVE ACCESS TO STATIC FILES .. -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,8 +23,8 @@
 	
 	<!-- JAVASCRIPT -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="assets/js/modernizr.js"></script>
-	<script src="assets/js/bootstrap.js"></script>
+	<script src="{% static 'js/modernizr.js' %}"></script>
+	<script src="{% static 'js/bootstrap.js' %}"></script>
 
 	<style>
 		body, .main-section p, .mce-content-body p{
@@ -45,7 +45,7 @@
 							<div class="logo">
 								<figure>
 									<a href="index.html" class="light-logo">
-										<img src="assets/extra-images/main-logo.png" alt="FoodBakery">
+										<img src="{% static 'logo/foodOnlineLogo.png' %}" alt="foodOnline" width="250">
 									</a>
 								</figure>
 							</div>
@@ -397,8 +397,8 @@
 	</div>
 	
 	<!-- Modal Popup End -->
-	<script src="assets/js/scripts.js"></script>
-	<script src="assets/js/functions.js"></script>
+	<script src="{% static 'js/scripts.js' %}"></script>
+	<script src="{% static 'js/functions.js' %}"></script>
 </body>
 
 </html>

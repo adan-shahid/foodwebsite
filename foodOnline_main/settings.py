@@ -82,6 +82,9 @@ DATABASES = {
 }
 
 
+AUTH_USER_MODEL= 'accounts.User' #WE ARE TELLING DJANGO THAT WE ARE NOT USING YOUR CUSTOM USER MODEL, INSTEAD WE ARE USING WHAT WE HAVE EDITED.
+
+
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 

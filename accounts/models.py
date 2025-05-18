@@ -70,6 +70,8 @@ class User(AbstractBaseUser): # WE ARE TAKING FULL CONTROL OF CUSTOM USER MODEL,
     USERNAME_FIELD = 'email' #WE USE EMAIL AS A LOGIN FIELD
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
 
+    objects = userManager()
+
     def __str__(self):
         return self.email
     

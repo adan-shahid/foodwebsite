@@ -50,7 +50,7 @@ class User(AbstractBaseUser): # WE ARE TAKING FULL CONTROL OF CUSTOM USER MODEL,
     last_name = models.CharField(max_length=50)
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=100, unique= True)
-    phone = models.IntegerField(max_length=13, blank=True)
+    phone = models.IntegerField(blank=True, null=True)
 
     role = models.PositiveSmallIntegerField(choices=ROLE_CHOICE, blank=True, null=True)
 

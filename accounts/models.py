@@ -115,10 +115,20 @@ class UserProfile(models.Model):
 def post_save_create_profile_reciever(sender, instance, created, **kwargs):
     print(created)
     if created:
-        
 #HOW DO WE CREATE THE 'USER PROFILE' GIVEN BELOW
         UserProfile.objects.create(user=instance)
         print("User Profile is created")
+
+    else:
+        try:
+            profile = UserProfile.objects.get(user=instance)
+            profile.save()
+        except:
+            #CREATE THE USER PROFILE, IF NOT EXIST.
+            UserProfile.objects.create(user=instance)
+            print("Profile was not existed, but I created one.")
+
+        print("User is Updated")
 
 
 

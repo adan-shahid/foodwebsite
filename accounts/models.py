@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 # Create your models here.
 
 class userManager(BaseUserManager): #WE ARE EXTENDING THIS BASEUSERMANAGER, i.e, TAKING CONTROL OF IT.
@@ -104,3 +107,22 @@ class UserProfile(models.Model):
     
 #RIGHT NOW, WHEN WE MAKE USER, USER PROFILE IS NOT AUTOMATICALLY CREATED. 
 #WE USE SIGNALS TO ACHIEVE THIS.
+
+
+#OTHER WAY OF CONNECTING WITH 'USER' MODEL.
+
+@receiver(post_save, sender=User)
+def post_save_create_profile_reciever(sender, instance, created, **kwargs):
+    print(created)
+    if created:
+        
+#HOW DO WE CREATE THE 'USER PROFILE' GIVEN BELOW
+        UserProfile.objects.create(user=instance)
+        print("User Profile is created")
+
+
+
+
+
+#WE ARE CONNECTING THIS MODEL WITH USER MODEL.
+#post_save.connect(post_save, post_save_create_profile_reciever, sender=User)

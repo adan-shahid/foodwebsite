@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.db.models.fields.related import ForeignKey, OneToOneField
 
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+
 
 # Create your models here.
 
@@ -87,7 +87,7 @@ class User(AbstractBaseUser): # WE ARE TAKING FULL CONTROL OF CUSTOM USER MODEL,
 class UserProfile(models.Model):
 #WE ARE PUTTING 1TO1 FIELD BCZ WE WANT THAT ONE USER SHOULD HAVE ONLY ONE PROFILE.
 #IF WE WANT THE ONE USER TO HAVE MULTIPLE PROFILES, THEN WE USE FOREIGNKEY.
-    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
+    user = OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     profile_picture = models.ImageField(upload_to='users/profile_pictures', blank=True, null=True)
     cover_photo = models.ImageField(upload_to='users/cover_photos', blank=True, null=True)
     address_line_1 = models.CharField(max_length=50, blank=True, null=True)
@@ -103,36 +103,9 @@ class UserProfile(models.Model):
     modified_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user.email
+        return self.user.email #WE ARE USING EMAIL AS A LOGIN FIELD.
     
 #RIGHT NOW, WHEN WE MAKE USER, USER PROFILE IS NOT AUTOMATICALLY CREATED. 
 #WE USE SIGNALS TO ACHIEVE THIS.
 
-
-#OTHER WAY OF CONNECTING WITH 'USER' MODEL.
-
-@receiver(post_save, sender=User)
-def post_save_create_profile_reciever(sender, instance, created, **kwargs):
-    print(created)
-    if created:
-#HOW DO WE CREATE THE 'USER PROFILE' GIVEN BELOW
-        UserProfile.objects.create(user=instance)
-        print("User Profile is created")
-
-    else:
-        try:
-            profile = UserProfile.objects.get(user=instance)
-            profile.save()
-        except:
-            #CREATE THE USER PROFILE, IF NOT EXIST.
-            UserProfile.objects.create(user=instance)
-            print("Profile was not existed, but I created one.")
-
-        print("User is Updated")
-
-
-
-
-
-#WE ARE CONNECTING THIS MODEL WITH USER MODEL.
-#post_save.connect(post_save, post_save_create_profile_reciever, sender=User)
+# SIGNALS ARE WRITTEN IN SEPARATE FILE i.e, signals.py

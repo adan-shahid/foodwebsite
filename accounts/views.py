@@ -29,6 +29,8 @@ def registerUser(request):
             print("User is created")
 
             return redirect('registerUser')
+        else:
+            print(form.errors)
     else:
         form = userRegistrationForm()
     

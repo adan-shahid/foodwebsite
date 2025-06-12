@@ -3,6 +3,8 @@ from .forms import userRegistrationForm
 from .models import User
 from django.contrib import messages
 
+from vendor.forms import vendorRegistrationForm
+
 # Create your views here.
 def registerUser(request):
     if request.method == 'POST':
@@ -45,4 +47,13 @@ def registerUser(request):
     return render(request, 'accounts/registerUser.html', context)
 
 def registerVendor(request):
-    return render(request, 'accounts/registerVendor.html')
+
+    form = userRegistrationForm()
+    v_form = vendorRegistrationForm()
+
+    context = {
+        'form':form,
+        'v_form':v_form,
+    }
+
+    return render(request, 'accounts/registerVendor.html', context)

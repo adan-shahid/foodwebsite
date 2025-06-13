@@ -47,9 +47,15 @@ def registerUser(request):
     return render(request, 'accounts/registerUser.html', context)
 
 def registerVendor(request):
-
-    form = userRegistrationForm()
-    v_form = vendorRegistrationForm()
+    if request.method == 'POST':
+        #store the data and create a user
+        form = userRegistrationForm(request.POST)
+        v_form = vendorRegistrationForm(request.POST, request.FILES)
+    
+    else:
+    
+        form = userRegistrationForm()
+        v_form = vendorRegistrationForm()
 
     context = {
         'form':form,

@@ -41,11 +41,11 @@ class userManager(BaseUserManager): #WE ARE EXTENDING THIS BASEUSERMANAGER, i.e,
         return user
     
 class User(AbstractBaseUser): # WE ARE TAKING FULL CONTROL OF CUSTOM USER MODEL, INCLUDING AUTHENTICATI0N.
-    RESTAURANT = 1
+    VENDOR = 1
     CUSTOMER = 2
 
     ROLE_CHOICE = (
-        (RESTAURANT, 'Restaurant'),
+        (VENDOR, 'Vendor'),
         (CUSTOMER, 'Customer'),
     )
     

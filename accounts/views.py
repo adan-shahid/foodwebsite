@@ -70,39 +70,31 @@ def registerVendor(request):
             vendor.user_profile = user_profile
             vendor.save()
             messages.success(request, "You account has been registered successfully! Please wait for admin approval.")
-
         else:
             print("Invalid Form")
             print(form.errors)
-    else:
-    
+    else: 
         form = userRegistrationForm()
         v_form = vendorRegistrationForm()
-
     context = {
         'form':form,
         'v_form':v_form,
     }
-
     return render(request, 'accounts/registerVendor.html', context)
 
 def login(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
-
         user = auth.authenticate(email=email, password=password)
-
         if user is not None:
             auth.login(request, user)
             messages.success(request, 'You are now logged in!')
-            return redirect('dashboard')
-        
+            return redirect('dashboard') 
         else:
             messages.error(request, 'Invalid Login Credentials.')
             return redirect('login')
-    return render(request, 'accounts/login.html' )
-
+    return render(request, 'accounts/login.html')
 
 def logout(request):
     auth.logout(request)

@@ -6,8 +6,10 @@ urlpatterns = [
 
     path('login/', views.login, name="login"),
     path('logout/', views.logout, name="logout"),
+    path('myAccount/', views.myAccount, name="myAccount"),
 
 #WHO IS LOGGED IN, WILL BE SENT TO THE DASHBOARD
-    path('dashboard/', views.dashboard, name="dashboard"),
+    path('custDashboard/', views.custDashboard, name="custDashboard"),
+    path('vendorDashboard/', views.vendorDashboard, name="vendorDashboard"),
 
 ]

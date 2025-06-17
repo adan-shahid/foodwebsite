@@ -83,6 +83,13 @@ class User(AbstractBaseUser): # WE ARE TAKING FULL CONTROL OF CUSTOM USER MODEL,
     
     def has_module_perms(self, app_label):
         return True
+    
+    def get_role(self):
+        if self.role == 1:
+            user_role = 'Vendor'
+        elif self.role == 2:
+            user_role = 'Customer'
+        return user_role
 
 class UserProfile(models.Model):
 #WE ARE PUTTING 1TO1 FIELD BCZ WE WANT THAT ONE USER SHOULD HAVE ONLY ONE PROFILE.

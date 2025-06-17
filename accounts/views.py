@@ -8,7 +8,10 @@ from vendor.forms import vendorRegistrationForm
 
 # Create your views here.
 def registerUser(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated:
+        messages.error(request,'You are already logged in!')
+        return redirect('dashboard')
+    elif request.method == 'POST':
         print(request.POST) #request.POST, WE ARE GETTING THE DATA HERE.
         form = userRegistrationForm(request.POST)
         if form.is_valid():
@@ -48,7 +51,10 @@ def registerUser(request):
     return render(request, 'accounts/registerUser.html', context)
 
 def registerVendor(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated:
+        messages.error(request,'You are already logged in!')
+        return redirect('dashboard')
+    elif request.method == 'POST':
         #store the data and create a user
         form = userRegistrationForm(request.POST)
         v_form = vendorRegistrationForm(request.POST, request.FILES)
@@ -83,7 +89,10 @@ def registerVendor(request):
     return render(request, 'accounts/registerVendor.html', context)
 
 def login(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated:
+        messages.error(request,'You are already logged in!')
+        return redirect('dashboard')
+    elif request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
         user = auth.authenticate(email=email, password=password)

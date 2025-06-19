@@ -85,6 +85,7 @@ class User(AbstractBaseUser): # WE ARE TAKING FULL CONTROL OF CUSTOM USER MODEL,
         return True
     
     def get_role(self):
+        user_role = None
         if self.role == 1:
             user_role = 'Vendor'
         elif self.role == 2:

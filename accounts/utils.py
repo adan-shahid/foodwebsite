@@ -13,3 +13,6 @@ def detectUser(user):
   else:
     redirectUrl = 'registerUser'
     return redirectUrl
+
+def send_verification_email(request,user):
+  pass

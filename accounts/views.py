@@ -72,6 +72,10 @@ def registerUser(request):
     }
     return render(request, 'accounts/registerUser.html', context)
 
+def activate(request, uidb64, token):
+    #ACTIVATE THE USER BY SETTING THE is_active STATUS TO TRUE.
+    return 
+
 def registerVendor(request):
     if request.user.is_authenticated:
         messages.error(request,'You are already logged in!')
@@ -91,6 +95,9 @@ def registerVendor(request):
             user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email, password=password)
             user.role = User.VENDOR
             user.save()
+
+            #SEND VERIFICATION EMAIL
+            send_verification_email(request, user)
 
             vendor = v_form.save(commit=False)
             vendor.user = user

@@ -150,8 +150,9 @@ MESSAGE_TAGS = {
 }
 
 #EMAIL CONFIGURATION.
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_POST = config('EMAIL_POST', cast=int)
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER') #EMAIL TO SEND MESSAGES TO USERS.
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True

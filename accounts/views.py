@@ -56,7 +56,7 @@ def registerUser(request):
             #print("User is created")
             
             #AFTER THE USER IS SAVED, WE WILL SEND THE VERIFICATION EMAIL.
-            send_verification_email(request,user)
+            send_verification_email(request, user)
 
             messages.success(request, "Your account has been registered successfully!")
             return redirect('registerUser')

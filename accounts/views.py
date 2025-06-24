@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .forms import userRegistrationForm
 from .models import User, UserProfile
-from .utils import detectUser, send_verification_email, send_password_reset_email
+from .utils import detectUser, send_verification_email
 from vendor.forms import vendorRegistrationForm
 
 from django.contrib import messages, auth
@@ -59,7 +59,9 @@ def registerUser(request):
             #print("User is created")
             
             #AFTER THE USER IS SAVED, WE WILL SEND THE VERIFICATION EMAIL.
-            send_verification_email(request, user)
+            mail_subject = 'Activate your account.'
+            email_template = 'accounts/emails/account_verification_email.html'
+            send_verification_email(request, user, mail_subject, email_template)
 
             messages.success(request, "Your account has been registered successfully!")
             return redirect('registerUser')
@@ -114,7 +116,9 @@ def registerVendor(request):
             user.save()
 
             #SEND VERIFICATION EMAIL
-            send_verification_email(request, user)
+            mail_subject = 'Activate your account.'
+            email_template = 'accounts/emails/account_verification_email.html'
+            send_verification_email(request, user, mail_subject, email_template)
 
             vendor = v_form.save(commit=False)
             vendor.user = user
@@ -181,7 +185,9 @@ def forgot_password(request):
             user = User.objects.get(email__exact=email)
 
             #SEND PASSWORD RESET EMAIL.
-            send_password_reset_email(request, user)
+            mail_subject = 'Reset your password.'
+            email_template = 'accounts/emails/reset_password_email.html'
+            send_password_reset_email(request, user, mail_subject, email_template)
 
             messages.success(request, 'Password reset link has been sent to your email address.')
             return redirect('login')

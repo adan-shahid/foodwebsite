@@ -36,3 +36,18 @@ def send_verification_email(request,user):
   to_email = user.email
   mail = EmailMessage(mail_subject, message, from_email, [to_email])
   mail.send()
+
+
+def send_password_reset_email(request, user):
+  from_email = settings.DEFAULT_FROM_EMAIL
+  current_site = get_current_site(request) #FIRST WE GET THE CURRENT SITE.
+  mail_subject = 'Reset your password'
+  message = render_to_string('accounts/emails/reset_password_email.html',{
+    'user':user,
+    'domain':current_site,
+    'uid':urlsafe_base64_encode(force_bytes(user.pk)), #TO ENCODE THE USER PRIMARY KEY.
+    'token':default_token_generator.make_token(user),   
+  })  
+  to_email = user.email
+  mail = EmailMessage(mail_subject, message, from_email, [to_email])
+  mail.send()

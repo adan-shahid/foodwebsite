@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .forms import userRegistrationForm
 from .models import User, UserProfile
-from .utils import detectUser, send_verification_email
+from .utils import detectUser, send_verification_email, send_password_reset_email
 from vendor.forms import vendorRegistrationForm
 
 from django.contrib import messages, auth
@@ -174,6 +174,22 @@ def vendorDashboard(request):
     return render(request, 'accounts/vendorDashboard.html')
 
 def forgot_password(request):
+    if request.method == 'POST':
+        email = request.POST['email'] #GETTING THE EMAIL.
+
+        if User.objects.filter(email=email).exists(): #CHECKING THE EMAIL IN THE DATABASE.
+            user = User.objects.get(email__exact=email)
+
+            #SEND PASSWORD RESET EMAIL.
+            send_password_reset_email(request, user)
+
+            messages.success(request, 'Password reset link has been sent to your email address.')
+            return redirect('login')
+        else:
+            messages.error(request, 'Account does not exists.')
+            return redirect('forgot_password')
+
+
     return render(request, 'accounts/forgot_password.html')
 
 def reset_password_validate(request, uidb64, token):

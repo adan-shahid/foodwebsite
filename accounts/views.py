@@ -179,10 +179,7 @@ def vendorDashboard(request):
 
 def forgot_password(request):
     if request.method == 'POST':
-
         email = request.POST['email']
-
-       
         if User.objects.filter(email=email).exists(): #CHECKING THE EMAIL IN THE DATABASE.
             user = User.objects.get(email__exact=email)
 

@@ -17,10 +17,7 @@ def detectUser(user):
   elif user.role == None and user.is_superadmin:
     redirectUrl = '/admin'
     return redirectUrl
-  else:
-    redirectUrl = 'registerUser'
-    return redirectUrl
-  
+
 
 #HELPER FUNCTION TO SEND THE VERIFICATION EMAIL.
 def send_verification_email(request,user, mail_subject, email_template):

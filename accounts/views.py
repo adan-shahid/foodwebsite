@@ -15,14 +15,14 @@ from django.contrib.auth.tokens import default_token_generator
 
 #RESTRICT THE VENDOR FROM ACCESSING THE CUSTOMER PAGE.
 def check_role_vender(user):
-    if user == 1:
+    if user.role == 1:
         return True
     else:
         raise PermissionDenied
 
 #RESTRICT THE CUSTOMER FROM ACCESSING THE VENDOR PAGE.
 def check_role_customer(user):
-    if user == 2:
+    if user.role == 2:
         return True
     else:
         raise PermissionDenied

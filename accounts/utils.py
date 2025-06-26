@@ -47,3 +47,6 @@ def send_verification_email(request,user, mail_subject, email_template):
 #   to_email = user.email
 #   mail = EmailMessage(mail_subject, message, from_email, [to_email])
 #   mail.send()
+
+def send_notification(request, mail_subject, mail_template):
+  pass

@@ -9,12 +9,15 @@ def vProfile(request):
   profile = get_object_or_404(UserProfile, user=request.user)
   vendor = get_object_or_404(Vendor, user=request.user)
 
-#BY PASSING THE INSTANCE, WE ARE GETTING THE PREVIUOSLY STORED DATA IN THESE FORMS.
+#BY PASSING THE INSTANCE, WE ARE GETTING THE PREVIUOSLY STORED DATA IN THESE FORMS FIELDS.
   profile_form = userProfileForm(instance=profile)
   vendor_form = vendorRegistrationForm(instance=vendor)
   context = {
     'profile_form':profile_form,
     'vendor_form':vendor_form,
+    'profile':profile,
+    'vendor':vendor
+
   }
   return render(request, 'vendor/vProfile.html', context)
 

@@ -1,17 +1,36 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .forms import vendorRegistrationForm
 from accounts.forms import userProfileForm
 from accounts.models import UserProfile
 from .models import Vendor
+
+from django.contrib import messages
 
 # Create your views here.
 def vProfile(request):
   profile = get_object_or_404(UserProfile, user=request.user)
   vendor = get_object_or_404(Vendor, user=request.user)
 
-#BY PASSING THE INSTANCE, WE ARE GETTING THE PREVIUOSLY STORED DATA IN THESE FORMS FIELDS.
-  profile_form = userProfileForm(instance=profile)
-  vendor_form = vendorRegistrationForm(instance=vendor)
+  if request.method == 'POST':
+  #WE ARE WRITING 'request.FILES' TO GET THE PICTURES.
+    profile_form = userProfileForm(request.POST, request.FILES, instance=profile)
+    vendor_form = vendorRegistrationForm(request.POST, request.FILES, instance=vendor)
+
+    if profile_form.is_valid() and vendor_form.is_valid():
+      profile_form.save()
+      vendor_form.save()
+      messages.success(request,'Restaurant profile updated!')
+      return redirect('vProfile')
+    else:
+      print(profile_form.errors)
+      print(vendor_form.errors)
+  else:
+    #BY PASSING THE INSTANCE, WE ARE GETTING THE PREVIUOSLY STORED DATA IN THESE FORMS FIELDS.
+    profile_form = userProfileForm(instance=profile)
+    vendor_form = vendorRegistrationForm(instance=vendor)
+      
+
+
   context = {
     'profile_form':profile_form,
     'vendor_form':vendor_form,

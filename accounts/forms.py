@@ -21,11 +21,12 @@ class userRegistrationForm(forms.ModelForm):
             )
         
 class userProfileForm(forms.ModelForm):
-    class Meta:
-
         profile_picture = forms.FileField(widget=forms.FileInput(attrs={'class': 'btn btn-info'}), validators=[allow_only_images_validator])
         cover_photo = forms.FileField(widget=forms.FileInput(attrs={'class': 'btn btn-info'}), validators=[allow_only_images_validator])
-        
-        model = UserProfile
-        fields = ['profile_picture', 'cover_photo', 'address_line_1', 'address_line_2', 'country', 'state', 'city',
-                  'pin_code', 'latitude', 'longitude']
+
+
+        class Meta:
+    
+            model = UserProfile
+            fields = ['profile_picture', 'cover_photo', 'address_line_1', 'address_line_2', 'country', 'state', 'city',
+                    'pin_code', 'latitude', 'longitude']

@@ -19,7 +19,7 @@ class Category(models.Model):
 
 
 
-class foodItems(models.Model):
+class foodItem(models.Model):
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     food_title = models.CharField(max_length=50)

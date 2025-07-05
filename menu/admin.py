@@ -9,9 +9,14 @@ class CategoryAdmin(admin.ModelAdmin):
     #SIMPL vendor  WILL NOT WORK, BCZ IT A FOREIGNKEY
     search_fields = ('category_name', 'vendor__vendor_name')
 
+class FoodItemAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug':('food_title',)}
+    list_display = ('food_title', 'category', 'vendor', 'price', 'is_availabe', 'updated_at')
+    search_fields = ('food_title', 'category__category_name', 'vendor__vendor_name', 'price')
+    list_filter = ('is_availabe',)
 
     
 
 # Register your models here.
 admin.site.register(Category,CategoryAdmin)
-admin.site.register(foodItem)
+admin.site.register(foodItem,FoodItemAdmin)

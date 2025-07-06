@@ -46,3 +46,8 @@ def vProfile(request):
   }
   return render(request, 'vendor/vProfile.html', context)
 
+#FROM HERE ONWARDS, I AM WRITING THE CODE FOR MENU 
+
+def menu_builder(request):
+  return render(request, 'vendor/menu_builder.html')
+

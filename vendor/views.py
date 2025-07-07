@@ -62,7 +62,10 @@ def fooditems_by_category(request, pk=None):
   vendor = Vendor.objects.get(user=request.user)
   category = get_object_or_404(Category, pk=pk)
   fooditems = foodItem.objects.filter(vendor=vendor, category=category)
-  print(fooditems)
+  context = {
+    'fooditems':fooditems,
+    'category':category,
+  }
 
-  return render(request,'vendor/fooditems_by_category.html' )
+  return render(request,'vendor/fooditems_by_category.html', context)
 

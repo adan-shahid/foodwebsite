@@ -9,6 +9,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from accounts.views import check_role_vendor
 
+from menu.models import Category
+
 # Create your views here.
 
 @login_required(login_url='login')
@@ -49,5 +51,10 @@ def vProfile(request):
 #FROM HERE ONWARDS, I AM WRITING THE CODE FOR MENU 
 
 def menu_builder(request):
-  return render(request, 'vendor/menu_builder.html')
+  vendor = Vendor.objects.get(user=request.user) #'GET' IS USED FOR ONLY 1 QUERY OBJECT
+  categories = Category.objects.filter(vendor=vendor) #'filter' IS USED FOR multiple QUERY 
+  context = {
+    'categories':categories,
+  }
+  return render(request, 'vendor/menu_builder.html',context )
 

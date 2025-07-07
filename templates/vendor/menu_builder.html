@@ -24,12 +24,14 @@
               <table class="table table-hover table-borderless">
                 
                 <tbody>
+                  {% for cat in categories %}
                   <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <td>1</td>
+                    <td>{{cat}}</td>
+                    <td>edit</td>
+                    <td>delete</td>
                   </tr>
+                  {% endfor %}
                   
                   
                 </tbody>

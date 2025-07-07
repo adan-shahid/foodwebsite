@@ -26,10 +26,13 @@
                 <tbody>
                   {% for cat in categories %}
                   <tr>
-                    <td>{{forloop.counter}}</td>
-                    <td>{{cat}}</td>
-                    <td>edit</td>
-                    <td>delete</td>
+                    <td class="text-left" >{{forloop.counter}}</td>
+                    <td class="text-left" >
+                      <a href=""><p class="mb-0 font-weight-bold" >{{ cat }}</p>
+                      <small class="text-muted" >{{cat.description}}</small></a>
+                    </td>
+                    
+                    <td> <i class="fa fa-pencil" aria-hidden="true"></i> &nbsp; <i class="fa fa-trash text-danger " aria-hidden="true"></i>  </td>
                   </tr>
                   {% endfor %}
                   

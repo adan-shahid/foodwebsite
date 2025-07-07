@@ -11,7 +11,10 @@ from accounts.views import check_role_vendor
 
 from menu.models import Category, foodItem
 
-# Create your views here.
+#HELPER FUNCTION TO GET THE VENDOR.
+def get_vendor(request):
+  vendor = Vendor.objects.get(user=request.user)
+  return vendor
 
 @login_required(login_url='login')
 @user_passes_test(check_role_vendor)
@@ -50,22 +53,26 @@ def vProfile(request):
 
 #FROM HERE ONWARDS, I AM WRITING THE CODE FOR MENU 
 
+@login_required(login_url='login')
+@user_passes_test(check_role_vendor)
 def menu_builder(request):
-  vendor = Vendor.objects.get(user=request.user) #'GET' IS USED FOR ONLY 1 QUERY OBJECT
+  vendor = get_vendor(request) #'GET' IS USED FOR ONLY 1 QUERY OBJECT
   categories = Category.objects.filter(vendor=vendor) #'filter' IS USED FOR multiple QUERY 
   context = {
     'categories':categories,
   }
   return render(request, 'vendor/menu_builder.html',context )
 
+
+@login_required(login_url='login')
+@user_passes_test(check_role_vendor)
 def fooditems_by_category(request, pk=None):
-  vendor = Vendor.objects.get(user=request.user)
+  vendor = get_vendor(request)
   category = get_object_or_404(Category, pk=pk)
   fooditems = foodItem.objects.filter(vendor=vendor, category=category)
   context = {
     'fooditems':fooditems,
     'category':category,
   }
-
   return render(request,'vendor/fooditems_by_category.html', context)
 

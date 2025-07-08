@@ -76,3 +76,7 @@ def fooditems_by_category(request, pk=None):
   }
   return render(request,'vendor/fooditems_by_category.html', context)
 
+
+def add_category(request):
+    return render(request, 'vendor/add_category.html')
+

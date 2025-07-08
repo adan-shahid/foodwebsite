@@ -5,6 +5,7 @@ from accounts.models import UserProfile
 from .models import Vendor
 
 from django.contrib import messages
+from django.template.defaultfilters import slugify
 
 from django.contrib.auth.decorators import login_required, user_passes_test
 from accounts.views import check_role_vendor
@@ -82,8 +83,10 @@ def add_category(request):
     if request.method == 'POST':
       form = categoryForm(request.POST)
       if form.is_valid():
+        category_name = form.cleaned_data['category_name']
         category = form.save(commit=False)
         category.vendor = get_vendor(request)
+        category.slug = slugify(category_name)
         form.save()
         messages.success(request, "Category add successfully")
         return redirect('menu_builder')

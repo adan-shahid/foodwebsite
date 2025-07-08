@@ -82,6 +82,8 @@ def add_category(request):
     if request.method == 'POST':
       form = categoryForm(request.POST)
       if form.is_valid():
+        category = form.save(commit=False)
+        category.vendor = get_vendor(request)
         form.save()
         messages.success(request, "Category add successfully")
         return redirect('menu_builder')

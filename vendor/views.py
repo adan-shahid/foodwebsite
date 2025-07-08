@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from accounts.views import check_role_vendor
 
 from menu.models import Category, foodItem
+from menu.forms import categoryForm
 
 #HELPER FUNCTION TO GET THE VENDOR.
 def get_vendor(request):
@@ -78,5 +79,17 @@ def fooditems_by_category(request, pk=None):
 
 
 def add_category(request):
-    return render(request, 'vendor/add_category.html')
+    if request.method == 'POST':
+      form = categoryForm(request.POST)
+      if form.is_valid():
+        form.save()
+        messages.success(request, "Category add successfully")
+        return redirect('menu_builder')
+    else: 
+      form = categoryForm()
+    context = {
+      'form':form,
+
+    }
+    return render(request, 'vendor/add_category.html',context)
 

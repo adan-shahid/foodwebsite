@@ -90,6 +90,8 @@ def add_category(request):
         form.save()
         messages.success(request, "Category add successfully")
         return redirect('menu_builder')
+      else:
+        print(form.errors)
     else: 
       form = categoryForm()
     context = {
@@ -110,6 +112,8 @@ def edit_category(request,pk=None):
         form.save()
         messages.success(request, "Category updated successfully")
         return redirect('menu_builder')
+      else:
+        print(form.errors)
     else: 
       form = categoryForm(instance=category)
     context = {

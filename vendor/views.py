@@ -97,4 +97,7 @@ def add_category(request):
 
     }
     return render(request, 'vendor/add_category.html',context)
+  
+def edit_category(request, pk=None):
+  return render(request, 'vendor/edit_category.html' )
 

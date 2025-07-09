@@ -10,5 +10,7 @@ urlpatterns = [
 
   #CATEGORY CRUD.
   path('menu-builder/category/add/', views.add_category, name="add_category"),
+  #HERE WE NEED PRIMART KEY TO KNOW WHICH CATEGORY ARE WE EDITING
+  path('menu-builder/category/edit/<int:pk>/', views.edit_category, name="edit_category"),
 
 ]

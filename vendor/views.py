@@ -98,6 +98,24 @@ def add_category(request):
     }
     return render(request, 'vendor/add_category.html',context)
   
-def edit_category(request, pk=None):
-  return render(request, 'vendor/edit_category.html' )
+def edit_category(request,pk=None):
+    category = get_object_or_404(Category, pk=pk)
+    if request.method == 'POST':
+      form = categoryForm(request.POST, instance=category)
+      if form.is_valid():
+        category_name = form.cleaned_data['category_name']
+        category = form.save(commit=False)
+        category.vendor = get_vendor(request)
+        category.slug = slugify(category_name)
+        form.save()
+        messages.success(request, "Category updated successfully")
+        return redirect('menu_builder')
+    else: 
+      form = categoryForm(instance=category)
+    context = {
+      'form':form,
+      'category':category,
+
+    }
+    return render(request, 'vendor/edit_category.html',context)
 

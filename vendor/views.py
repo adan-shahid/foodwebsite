@@ -59,7 +59,7 @@ def vProfile(request):
 @user_passes_test(check_role_vendor)
 def menu_builder(request):
   vendor = get_vendor(request) #'GET' IS USED FOR ONLY 1 QUERY OBJECT
-  categories = Category.objects.filter(vendor=vendor) #'filter' IS USED FOR multiple QUERY 
+  categories = Category.objects.filter(vendor=vendor).order_by('created_at') #'filter' IS USED FOR multiple QUERY 
   context = {
     'categories':categories,
   }

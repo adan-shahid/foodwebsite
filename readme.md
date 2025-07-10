@@ -1,1 +1,1 @@
-#Multivendor Ecommerce system in Django/
+#Multivendor Ecommerce system in Django

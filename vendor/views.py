@@ -154,3 +154,26 @@ def add_food(request):
   }
   return render(request, 'vendor/add_food.html', context)
 
+def edit_food(request, pk=None):
+    food = get_object_or_404(foodItem, pk=pk)
+    if request.method == 'POST':
+      form = foodItemForm(request.POST, request.FILES ,instance=food)
+      if form.is_valid():
+        foodtitle = form.cleaned_data['food_title']
+        food = form.save(commit=False)
+        food.vendor = get_vendor(request)
+        food.slug = slugify(foodtitle)
+        form.save()
+        messages.success(request, "Food updated successfully")
+        return redirect('fooditems_by_category', food.category.id)
+      else:
+        print(form.errors)
+    else: 
+      form = foodItemForm(instance=food)
+    context = {
+      'form':form,
+      'food':food,
+
+    }
+    return render(request, 'vendor/edit_food.html', context)
+

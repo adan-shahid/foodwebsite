@@ -11,7 +11,8 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from accounts.views import check_role_vendor
 
 from menu.models import Category, foodItem
-from menu.forms import categoryForm
+from menu.forms import categoryForm, foodItemForm
+
 
 #HELPER FUNCTION TO GET THE VENDOR.
 def get_vendor(request):
@@ -79,6 +80,8 @@ def fooditems_by_category(request, pk=None):
   return render(request,'vendor/fooditems_by_category.html', context)
 
 
+#CATEGORY CRUD VIEWS.
+
 def add_category(request):
     if request.method == 'POST':
       form = categoryForm(request.POST)
@@ -129,4 +132,12 @@ def delete_category(request, pk=None):
   messages.success(request, "Category deleted successfully")
   return redirect('menu_builder')
   
+#FOODITEMS CRUD VIEW
+
+def add_food(request):
+  form = foodItemForm()
+  context = {
+    'form':form,
+  }
+  return render(request, 'vendor/add_food.html', context)
 

@@ -17,19 +17,19 @@
             <div class="user-holder">
               <h5 class="text-uppercase">Build your food menu.</h5>
               <hr />
-              <button class="btn btn-secondary" onclick="history.back()" > <i class="fa fa-angle-left" aria-hidden="true"></i> back</button>
+               <button class="btn btn-secondary" onclick="history.back()" > <i class="fa fa-angle-left" aria-hidden="true"></i> back</button>
                <br><br>
-              <h6>Add new Category</h6>
+              <h6>Add new food</h6>
 
               <!-- RENDER FORM  -->
-              <form action="{% url 'add_category' %}" method="POST">
+              <form action="{% url 'add_food' %}" method="POST">
                 {% csrf_token %}
                 <div class="form-fields-set">
                   <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                       <div class="field-holder">
-                        <label>Category Name *</label>
-                        {{form.category_name}}
+                        <label>Food Title *</label>
+                        {{form.food_title}}
                       </div>
                     </div>
 
@@ -37,6 +37,20 @@
                       <div class="field-holder">
                         <label>Description</label>
                         {{form.description}}
+                      </div>
+                    </div>
+
+                     <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="field-holder">
+                        <label>Price</label>
+                        {{form.price}}
+                      </div>
+                    </div>
+
+                     <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="field-holder">
+                        <label>Is available</label>
+                        {{form.is_available}}
                       </div>
                     </div>
                   </div>

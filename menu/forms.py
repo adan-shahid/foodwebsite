@@ -9,5 +9,5 @@ class categoryForm(forms.ModelForm):
 class foodItemForm(forms.ModelForm):
     class Meta:
         model = foodItem
-        fields = ['food_title' ,'description' ,'price' ,'image' ,'is_availabe']
+        fields = ['category','food_title' ,'description' ,'price' ,'image' ,'is_availabe']
         

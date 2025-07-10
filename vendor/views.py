@@ -135,7 +135,20 @@ def delete_category(request, pk=None):
 #FOODITEMS CRUD VIEW
 
 def add_food(request):
-  form = foodItemForm()
+  if request.method == 'POST':
+      form = foodItemForm(request.POST)
+      if form.is_valid():
+        foodtitle = form.cleaned_data['food_title']
+        food = form.save(commit=False)
+        food.vendor = get_vendor(request)
+        food.slug = slugify(foodtitle)
+        form.save()
+        messages.success(request, "Food add successfully")
+        return redirect('fooditems_by_category', food.category.id)
+      else:
+        print(form.errors)
+  else:
+    form = foodItemForm() 
   context = {
     'form':form,
   }

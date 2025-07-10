@@ -136,7 +136,7 @@ def delete_category(request, pk=None):
 
 def add_food(request):
   if request.method == 'POST':
-      form = foodItemForm(request.POST)
+      form = foodItemForm(request.POST, request.FILES)
       if form.is_valid():
         foodtitle = form.cleaned_data['food_title']
         food = form.save(commit=False)

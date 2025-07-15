@@ -18,6 +18,7 @@
               <h5 class="text-uppercase">Build your food menu.</h5>
               <hr />
               <h6>Menu Categories</h6>
+              {% if categories %}
               <a href="{% url 'add_food' %}" class="btn btn-success float-right m-1"> <i class="fa fa-plus" aria-hidden="true"></i> Add food</a>
               <a href="{% url 'add_category'  %}" class="btn btn-info float-right m-1" > <i class="fa fa-plus" aria-hidden="true"></i> Add category</a>
 
@@ -39,6 +40,11 @@
                   
                 </tbody>
               </table>
+              {% else %}
+              <h5 class="text-center">No Categories</h5>
+              <div class="text-center"><a class="btn btn-success" href="{% url 'add_category' %}"> <i class="fa fa-plus" aria-hidden="true"></i>  Add Category</a></div>
+
+              {% endif %}
             </div>
           </div>
         </div>

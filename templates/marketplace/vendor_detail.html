@@ -117,23 +117,18 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 sticky-sidebar">
-          <div class="filter-toggle">
-            <span class="filter-toggle-text">Categories By</span
-            ><i class="icon-chevron-down"></i>
-          </div>
+         
           <div class="filter-wrapper">
             <div class="categories-menu">
               <h6><i class="icon-restaurant_menu"></i>Categories</h6>
               <ul class="menu-list">
+                {% for category in categories %}
                 <li class="active">
-                  <a href="#" class="menu-category-link"> Pizzas </a>
+                  <a href="#" class="menu-category-link"> {{category}} </a>
                 </li>
-                <li class="">
-                  <a href="#" class="menu-category-link"> Garlic Bread </a>
-                </li>
-                <li class="">
-                  <a href="#" class="menu-category-link"> Kebabs </a>
-                </li>
+                {% endfor %}
+               
+                
               </ul>
             </div>
           </div>

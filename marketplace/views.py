@@ -13,3 +13,6 @@ def marketplace(request):
 #NOW ON THE listings.html, we have the access to vendors and vendor_count.
     return render(request, 'marketplace/listings.html',context)
 
+def vendor_detail(request, vendor_slug):
+    return render(request, 'marketplace/vendor_detail.html' )
+

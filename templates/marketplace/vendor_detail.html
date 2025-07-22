@@ -156,6 +156,7 @@
                     </div>
                     <ul>
 
+                      {% for food in category.fooditems.all %}
                       <li>
                         <div class="image-holder">
                           <a
@@ -166,20 +167,20 @@
                           /></a>
                         </div>
                         <div class="text-holder">
-                          <h6>Garlic Pizza Bread 9 " Thin</h6>
+                          <h6>{{food}}</h6>
                           <span
-                            >Butter and crushed garlic, then spread a little
-                            over the pizza</span
+                            >{{food.description}}</span
                           >
                         </div>
                         <div class="price-holder">
-                          <span class="price">£2.50</span>
+                          <span class="price">{{food.price}}</span>
                           <a href="#" class="restaurant-add-menu-btn"
                             ><i class="icon-plus4 text-color"></i
                           ></a>
                           <span id="add-menu-loader-10"></span>
                         </div>
                       </li>
+                      {% endfor %}
 
                     </ul>
                     {% endfor %}

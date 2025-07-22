@@ -21,7 +21,7 @@ def vendor_detail(request, vendor_slug):
     categories = Category.objects.filter(vendor=vendor).prefetch_related(
         Prefetch(
             'fooditems', 
-            queryset=foodItem.objects.filter(is_available=True)
+            queryset=foodItem.objects.filter(is_availabe=True)
         )
 
     )

@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse
+from django.http import JsonResponse
 from vendor.models import Vendor
 from menu.models import Category, foodItem
 from django.db.models import Prefetch
@@ -32,4 +33,7 @@ def vendor_detail(request, vendor_slug):
 
 
 def add_to_cart(request, food_id=None):
-    return HttpResponse('testing')
+    if request.user.is_authenticated:
+        return JsonResponse({'status':'success', 'message':'User is Logged in.'})
+    else:
+        return JsonResponse({'status':'failed', 'message':'Please Login to continue'})

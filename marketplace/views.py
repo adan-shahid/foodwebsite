@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from vendor.models import Vendor
 from menu.models import Category, foodItem
 from django.db.models import Prefetch
+from django.conf import settings
+from marketplace.models import Cart
 
 # Create your views here.
 def marketplace(request):
@@ -34,6 +36,26 @@ def vendor_detail(request, vendor_slug):
 
 def add_to_cart(request, food_id=None):
     if request.user.is_authenticated:
-        return JsonResponse({'status':'success', 'message':'User is Logged in.'})
+        if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+            # CHECK IF THE FOODITEM EXISITS.
+            try:
+                fooditem = foodItem.objects.get(id=food_id)
+                # CHECK IF USER HAS ALREADY ADDED THAT FOOD TO THE CART.
+                try:
+                    chkcart = Cart.objects.get(user=request.user, fooditem=fooditem)
+                    # increase the cart quantity
+                    chkcart.quantity += 1
+                    chkcart.save()
+                    return JsonResponse({'status':'success', 'message':'Increased the Cart quantity.'})
+
+                except:
+                    chkcart = Cart.objects.create(user = request.user, fooditem=fooditem, quantity=1)
+                    return JsonResponse({'status':'success', 'message':'Added the food to the Cart.'})
+
+            except:
+                return JsonResponse({'status':'failed', 'message':'This food does not exists.'})
+
+        else:
+            return JsonResponse({'status':'failed', 'message':'Invalid Request'})
     else:
         return JsonResponse({'status':'failed', 'message':'Please Login to continue'})

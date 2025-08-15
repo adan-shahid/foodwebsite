@@ -26,6 +26,6 @@ $(document).ready(function(){
         // taking the value of id
         var the_id = $(this).attr('id') 
         var qty = $(this).attr('data-qty') 
-        console.log(qty)
+        $('#'+ the_id).html(qty)
     })
 });

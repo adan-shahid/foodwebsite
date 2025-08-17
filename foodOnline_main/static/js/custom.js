@@ -16,8 +16,9 @@ $(document).ready(function(){
             url: url,
             data: data,
             success: function(response){
-                console.log(response.cart_counter['cart_count'])
+                console.log(response)
                 $('#cart_counter').html(response.cart_counter['cart_count']);
+                $('#qty-'+ food_id).html(response.qty);
             }
         })
     })
@@ -28,5 +29,6 @@ $(document).ready(function(){
         var the_id = $(this).attr('id') 
         var qty = $(this).attr('data-qty') 
         $('#'+ the_id).html(qty)
+        // $('#'+ the_id).html(response.cart_counter['cart_count']);
     })
 });

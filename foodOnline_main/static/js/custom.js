@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    // ADD TO CART 
     $('.add_to_cart').on('click', function(e){
         e.preventDefault();
  
@@ -17,6 +18,7 @@ $(document).ready(function(){
             data: data,
             success: function(response){
                 console.log(response)
+                // FOR REAL TIME LOADING OF FOOD QUANTITY IN BOTH LOCATIONS
                 $('#cart_counter').html(response.cart_counter['cart_count']);
                 $('#qty-'+ food_id).html(response.qty);
             }
@@ -30,5 +32,31 @@ $(document).ready(function(){
         var qty = $(this).attr('data-qty') 
         $('#'+ the_id).html(qty)
         // $('#'+ the_id).html(response.cart_counter['cart_count']);
+    })
+
+    // DECREASE CART 
+      $('.decrease_cart').on('click', function(e){
+        e.preventDefault();
+ 
+//WHEN I CLICK ON ADD_TO_CART BUTTON, IT WILL TAKE ALL THIS DATA.
+        food_id = $(this).attr('data-id');
+        url = $(this).attr('data-url');
+        data = {
+            food_id: food_id,
+        }
+        
+// WE ARE SENDING THAT 'food_id' TO OUR 'add_to_cart' view using the 
+// AJAX request
+        $.ajax({
+            type: 'GET',
+            url: url,
+            data: data,
+            success: function(response){
+                console.log(response)
+                // FOR REAL TIME LOADING OF FOOD QUANTITY IN BOTH LOCATIONS
+                $('#cart_counter').html(response.cart_counter['cart_count']);
+                $('#qty-'+ food_id).html(response.qty);
+            }
+        })
     })
 });

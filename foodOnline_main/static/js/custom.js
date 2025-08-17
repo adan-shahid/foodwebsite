@@ -17,10 +17,14 @@ $(document).ready(function(){
             url: url,
             data: data,
             success: function(response){
-                console.log(response)
-                // FOR REAL TIME LOADING OF FOOD QUANTITY IN BOTH LOCATIONS
-                $('#cart_counter').html(response.cart_counter['cart_count']);
-                $('#qty-'+ food_id).html(response.qty);
+               if (response.status == 'failed'){
+                    console.log('Rasie the error messge')
+                }else{
+
+                    // FOR REAL TIME LOADING OF FOOD QUANTITY IN BOTH LOCATIONS
+                    $('#cart_counter').html(response.cart_counter['cart_count']);
+                    $('#qty-'+ food_id).html(response.qty);
+                }
             }
         })
     })
@@ -52,10 +56,19 @@ $(document).ready(function(){
             url: url,
             data: data,
             success: function(response){
-                console.log(response)
+                // console.log(response)
+                if (response.status == 'failed'){
+                    console.log(response)
+                }else{
+
+                    // FOR REAL TIME LOADING OF FOOD QUANTITY IN BOTH LOCATIONS
+                    $('#cart_counter').html(response.cart_counter['cart_count']);
+                    $('#qty-'+ food_id).html(response.qty);
+                }
                 // FOR REAL TIME LOADING OF FOOD QUANTITY IN BOTH LOCATIONS
-                $('#cart_counter').html(response.cart_counter['cart_count']);
-                $('#qty-'+ food_id).html(response.qty);
+                // $('#cart_counter').html(response.cart_counter['cart_count']);
+                // $('#qty-'+ food_id).html(response.qty);
+                
             }
         })
     })

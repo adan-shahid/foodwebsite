@@ -73,12 +73,16 @@ def decrease_cart(request, food_id):
                 fooditem = foodItem.objects.get(id=food_id)
                 try:
                     chkcart = Cart.objects.get(user=request.user, fooditem=fooditem)
-                    chkcart.quantity -= 1
-                    chkcart.save()
-                    return JsonResponse({'status':'success', 'message':'Increased the Cart quantity.', 'cart_counter':get_cart_count(request), 'qty':chkcart.quantity})
-                except:
-                    chkcart = Cart.objects.create(user = request.user, fooditem=fooditem, quantity=1)
-                    return JsonResponse({'status':'success', 'message':'Added the food to the Cart.' ,'cart_counter':get_cart_count(request), 'qty':chkcart.quantity})
+                    if chkcart.quantity > 1:
+
+                        chkcart.quantity -= 1
+                        chkcart.save()
+                    else:
+                        chkcart.delete()
+                        chkcart.quantity = 0
+                    return JsonResponse({'status':'success', 'message':'Decreased the Cart quantity.', 'cart_counter':get_cart_count(request), 'qty':chkcart.quantity})
+                except:  
+                    return JsonResponse({'status':'failed', 'message':'You donot have this item in your cart.','cart_counter':get_cart_count(request), 'qty':chkcart.quantity})
 
 
             except:

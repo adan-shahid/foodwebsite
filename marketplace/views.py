@@ -45,9 +45,11 @@ def add_to_cart(request, food_id=None):
         if request.headers.get("X-Requested-With") == "XMLHttpRequest":
             # CHECK IF THE FOODITEM EXISITS.
             try:
+
                 fooditem = foodItem.objects.get(id=food_id)
                 # CHECK IF USER HAS ALREADY ADDED THAT FOOD TO THE CART.
                 try:
+
                     chkcart = Cart.objects.get(user=request.user, fooditem=fooditem)
                     # increase the cart quantity
                     chkcart.quantity += 1
@@ -60,18 +62,20 @@ def add_to_cart(request, food_id=None):
 
             except:
                 return JsonResponse({'status':'failed', 'message':'This food does not exists.'})
-
+            
         else:
             return JsonResponse({'status':'failed', 'message':'Invalid Request'})
     else:
-        return JsonResponse({'status':'failed', 'message':'Please Login to continue'})
+        return JsonResponse({'status':'login_required', 'message':'Please Login to continue'})
     
 def decrease_cart(request, food_id):
     if request.user.is_authenticated:
         if request.headers.get("X-Requested-With") == "XMLHttpRequest":
             try:
+
                 fooditem = foodItem.objects.get(id=food_id)
                 try:
+
                     chkcart = Cart.objects.get(user=request.user, fooditem=fooditem)
                     if chkcart.quantity > 1:
 
@@ -82,17 +86,14 @@ def decrease_cart(request, food_id):
                         chkcart.quantity = 0
                     return JsonResponse({'status':'success', 'message':'Decreased the Cart quantity.', 'cart_counter':get_cart_count(request), 'qty':chkcart.quantity})
                 except:  
-                    return JsonResponse({'status':'failed', 'message':'You donot have this item in your cart.','cart_counter':get_cart_count(request), 'qty':chkcart.quantity})
 
+                    return JsonResponse({'status':'failed', 'message':'You donot have this item in your cart.','cart_counter':get_cart_count(request), 'qty':chkcart.quantity})
 
             except:
                 return JsonResponse({'status':'failed', 'message':'This food does not exists.'})
-
-                    
-
             
         else:
             return JsonResponse({'status':'failed', 'message':'Invalid Request'})
         
     else:
-        return JsonResponse({'status':'failed', 'message':'Please Login to continue'})
+        return JsonResponse({'status':'login_required', 'message':'Please Login to continue'})

@@ -1,3 +1,5 @@
+
+
 $(document).ready(function(){
     // ADD TO CART 
     $('.add_to_cart').on('click', function(e){
@@ -8,6 +10,7 @@ $(document).ready(function(){
         url = $(this).attr('data-url');
         data = {
             food_id: food_id,
+            
         }
         
 // WE ARE SENDING THAT 'food_id' TO OUR 'add_to_cart' view using the 
@@ -17,10 +20,23 @@ $(document).ready(function(){
             url: url,
             data: data,
             success: function(response){
-               if (response.status == 'failed'){
-                    console.log('Rasie the error messge')
-                }else{
-
+               if (response.status == 'login_required'){
+                    swal.fire({
+                        title: "Not logged In",
+                        text: response.message,
+                        icon: "info"
+                        }).then(function(){
+                            window.location = '/login';
+                        });
+                    // console.log('Rasie the error messge')
+                } else if(response.status == 'failed'){
+                    swal.fire({
+                        title: "Failed status",
+                        text: response.message,
+                        icon: "error"
+                        });
+                }
+                else{
                     // FOR REAL TIME LOADING OF FOOD QUANTITY IN BOTH LOCATIONS
                     $('#cart_counter').html(response.cart_counter['cart_count']);
                     $('#qty-'+ food_id).html(response.qty);
@@ -38,7 +54,7 @@ $(document).ready(function(){
         // $('#'+ the_id).html(response.cart_counter['cart_count']);
     })
 
-    // DECREASE CART 
+// DECREASE CART 
       $('.decrease_cart').on('click', function(e){
         e.preventDefault();
  
@@ -57,8 +73,21 @@ $(document).ready(function(){
             data: data,
             success: function(response){
                 // console.log(response)
-                if (response.status == 'failed'){
-                    console.log(response)
+               if (response.status == 'login_required'){
+                    swal.fire({
+                        title: "Not logged In",
+                        text: response.message,
+                        icon: "info"
+                        }).then(function(){
+                            window.location = '/login';
+                        });
+                    // console.log('Rasie the error messge')
+                } else if(response.status == 'failed'){
+                    swal.fire({
+                        title: "Failed status",
+                        text: response.message,
+                        icon: "error"
+                        });
                 }else{
 
                     // FOR REAL TIME LOADING OF FOOD QUANTITY IN BOTH LOCATIONS

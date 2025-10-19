@@ -12,4 +12,6 @@ urlpatterns = [
     path('decrease_cart/<int:food_id>/', views.decrease_cart, name='decrease_cart'),
 
 
+
+
 ]

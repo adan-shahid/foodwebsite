@@ -20,8 +20,9 @@
                 <div class="menu-itam-holder">
                   <div id="menu-item-list-6272" class="menu-itam-list">
 
-                    {% if cart_items %}
+                    
                     <ul>
+                      {% if cart_items %}
                       {% for item in cart_items %}
                       <li>
                         <div class="image-holder">
@@ -45,8 +46,15 @@
                         </div>
                       </li>
                       {% endfor %}
+                      {% else %}
+                      <div class="text-center p-5">
+                        <h3>Cart is empty</h3>
+                      </div>
+
+                       {% endif %}
+
                     </ul>
-                    {% endif %}
+                   
                   
 
                     {% for item in cart_items %}

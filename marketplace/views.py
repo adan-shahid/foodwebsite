@@ -105,3 +105,19 @@ def cart(request):
 
     }
     return render(request, 'marketplace/cart.html', context)
+
+def delete_cart(request, cart_id):
+    if request.user.is_authenticated:
+        if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+            try:
+                #check if the cart item exists
+                cart_item = Cart.objects.get(user=request.user, id=cart_id)
+                if cart_item:
+                    cart_item.delete()
+                    return JsonResponse({'status':'Success', 'message':'Cart item is deleted', 'cart_counter':get_cart_count(request)})
+            except:
+                return JsonResponse({'status':'failed', 'message':'Cart Item does not exist.'})      
+
+        else:
+            return JsonResponse({'status':'failed', 'message':'Invalid Request'})
+
